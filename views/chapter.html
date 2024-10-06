@@ -151,9 +151,9 @@
             nextChapterLink.style.display = 'none';
         }
 
-        // Actualizar la fuente del video
-        const chapterVideo = document.getElementById('chapter-video');
-        chapterVideo.src = `/videos/chapter${currentChapter}.mp4`;
+       // Actualizar la fuente del video
+const chapterVideo = document.getElementById('chapter-video');
+chapterVideo.src = `/videos/${currentChapter}.mp4`; // Cambiado a ${currentChapter}.mp4
     </script>
 </body>
 </html>
