@@ -6,43 +6,13 @@
     <title>Capítulo - Story Webb</title>
     <link href="/css/output.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Estilos adicionales para animaciones */
-        body {
-            font-family: 'Comic Neue', cursive; /* Fuente infantil */
-        }
-        .quote {
-            transition: transform 0.3s ease;
-            font-size: 1.5rem; /* Aumentar tamaño de fuente */
-            line-height: 1.5; /* Aumentar altura de línea para mejor legibilidad */
-        }
-        .quote:hover {
-            transform: scale(1.05);
-        }
-        .chapter-image {
-            transition: transform 0.3s ease;
-            max-width: 100%; /* Asegurarse de que la imagen no exceda el contenedor */
-            height: auto; /* Mantener la proporción de la imagen */
-        }
-        .chapter-content {
-            margin-bottom: 2rem; /* Espaciado entre citas e imágenes */
-        }
-        video {
-            width: 100%; /* Asegurarse de que el video ocupe todo el ancho del contenedor */
-            height: auto; /* Mantener la proporción del video */
-        }
-        /* Aumentar el tamaño de los controles del video */
-        video::-webkit-media-controls {
-            height: 50px; /* Aumentar la altura de los controles */
-        }
-    </style>
 </head>
 <body class="bg-gray-900 text-white">
     <div class="container mx-auto px-4 py-8 max-w-3xl">
         <h1 class="text-4xl font-bold mb-8 text-center">Capítulo <span id="chapter-number"></span></h1>
         
         <div id="chapter-content" class="mb-12">
-            <!-- Contenido del capítulo se cargará aquí -->
+            
         </div>
         
         <div class="mb-12">
@@ -62,6 +32,11 @@
             <a href="#" id="next-chapter-link" class="next-chapter hover:scale-110 transition-transform">➡️</a>
         </div>
     </div>
+
+    <audio id="background-music" preload="auto" volume="1" loop>
+        <source src="/audio/background-music2.mp3" type="audio/mpeg">
+        Tu navegador no soporta el elemento de audio.
+    </audio>
 
     <script>
         // Contenido específico de cada capítulo
@@ -151,9 +126,15 @@
             nextChapterLink.style.display = 'none';
         }
 
-       // Actualizar la fuente del video
-const chapterVideo = document.getElementById('chapter-video');
-chapterVideo.src = `/videos/${currentChapter}.mp4`; // Cambiado a ${currentChapter}.mp4
+        // Actualizar la fuente del video
+        const chapterVideo = document.getElementById('chapter-video');
+        chapterVideo.src = `/videos/${currentChapter}.mp4`; // Cambiado a ${currentChapter}.mp4
+
+        // Agregar evento para reproducir el audio automáticamente
+        document.addEventListener("DOMContentLoaded", function() {
+            const audio = document.getElementById('background-music');
+            audio.play();
+        });
     </script>
 </body>
 </html>
