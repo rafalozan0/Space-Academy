@@ -1,18 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Capítulo - Story Webb</title>
     <link href="/css/output.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Handlee&family=Comic+Neue:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos adicionales para animaciones */
+        body {
+            font-family: 'Comic Neue', cursive; /* Fuente infantil */
+        }
+        .quote {
+            transition: transform 0.3s ease;
+            font-size: 1.5rem; /* Aumentar tamaño de fuente */
+            line-height: 1.5; /* Aumentar altura de línea para mejor legibilidad */
+        }
+        .quote:hover {
+            transform: scale(1.05);
+        }
+        .chapter-image {
+            transition: transform 0.3s ease;
+            max-width: 100%; /* Asegurarse de que la imagen no exceda el contenedor */
+            height: auto; /* Mantener la proporción de la imagen */
+        }
+        .chapter-content {
+            margin-bottom: 2rem; /* Espaciado entre citas e imágenes */
+        }
+        video {
+            width: 100%; /* Asegurarse de que el video ocupe todo el ancho del contenedor */
+            height: auto; /* Mantener la proporción del video */
+        }
+        /* Aumentar el tamaño de los controles del video */
+        video::-webkit-media-controls {
+            height: 50px; /* Aumentar la altura de los controles */
+        }
+    </style>
 </head>
 <body class="bg-gray-900 text-white">
-    <div class="container mx-auto px-4 py-8">
-        <h1 class="text-4xl font-bold mb-4">Capítulo</h1>
-        <p class="mb-4">Contenido del capítulo irá aquí.</p>
-        <a href="/" class="button bg-yellow-400 text-white font-bold py-2 px-4 rounded-full hover:scale-110 transition-transform">
-            Volver al Inicio
-        </a>
+    <div class="container mx-auto px-4 py-8 max-w-3xl">
+        <h1 class="text-4xl font-bold mb-8 text-center">Capítulo <span id="chapter-number"></span></h1>
+        
+        <div id="chapter-content" class="mb-12">
+            <!-- Contenido del capítulo se cargará aquí -->
+        </div>
+        
+        <div class="mb-12">
+            <h2 class="text-2xl font-bold mb-4 text-center">Video del capítulo</h2>
+            <div class="w-full max-w-2xl mx-auto bg-gray-800 p-4 rounded-lg">
+                <video id="chapter-video" class="w-full h-auto" controls autoplay muted>
+                    <source src="" type="video/mp4">
+                    Tu navegador no soporta el tag de video.
+                </video>
+            </div>
+        </div>
+        
+        <div class="flex justify-between items-center mt-8">
+            <a href="/" class="button bg-yellow-400 text-white font-bold py-2 px-4 rounded-full hover:scale-110 transition-transform">
+                Volver al Inicio
+            </a>
+            <a href="#" id="next-chapter-link" class="next-chapter hover:scale-110 transition-transform">➡️</a>
+        </div>
     </div>
+
+    <script>
+        // Contenido específico de cada capítulo
+        const chapterContent = {
+            1: {
+                quotes: [
+                    "Hace mucho, mucho tiempo, los humanos miraban hacia el cielo nocturno y veían pequeñas luces brillantes llamadas estrellas.",
+                    "No sabían qué eran, pero creían que los dioses las habían puesto ahí para guiarlos.",
+                    "Usaban las estrellas para contar historias, navegar los mares y predecir las estaciones",
+                    "Los primeros humanos solo podían imaginar lo que había más allá del cielo, pero sabían que las estrellas guardaban grandes secretos",
+                    "Hoy, los humanos hemos creado herramientas increíbles para entender mejor el universo."
+                ],
+                images: [
+                    "/images/cap1/1.jpeg",
+                    "/images/cap1/2.jpeg",
+                    "/images/cap1/3.jpeg",
+                    "/images/cap1/4.jpeg",
+                    "/images/cap1/5.jpeg"
+                ]
+            },
+            2: {
+                quotes: [
+                    "Hoy, los humanos hemos creado herramientas increíbles para entender mejor el universo. Uno de estos es el Telescopio Espacial James Webb, que nos permite ver más lejos que nunca antes.",
+                    "Con este telescopio, podemos descubrir nuevas galaxias, estrellas que están naciendo y planetas muy lejanos",
+                    "Ahora sabemos que el universo es enorme, lleno de misterios y maravillas que todavía estamos explorando",
+                    "¡Cada día aprendemos algo nuevo sobre el espacio!",
+                    "Caminos que se entrelazanAhora sabemos que el universo es enorme, lleno de misterios y maravillas que todavía estamos explorando. ¡Cada día aprendemos algo nuevo sobre el espacio!"
+                ],
+                images: [
+                    "/images/cap2/1.jpeg",
+                    "/images/cap2/2.jpeg",
+                    "/images/cap2/3.jpeg",
+                    "/images/cap2/4.jpeg",
+                    "/images/cap2/5.jpeg"
+                ]
+            },
+            3: {
+                quotes: [
+                    "En el futuro, los humanos quizá sepan mucho más sobre el universo",
+                    "Tal vez encontremos vida en otros planetas o podamos viajar a lugares que solo podemos soñar hoy.",
+                    "Las nuevas generaciones usarán mejores herramientas y harán descubrimientos increíbles.",
+                    "Con el avance de la tecnología, podremos explorar regiones del espacio que antes eran inaccesibles.",
+                    "Aunque todavía no sabemos todo sobre el universo, lo emocionante es que cada día estamos más cerca de entender los misterios del espacio. ¡El futuro es brillante y lleno de aventuras!"
+                ],
+                images: [
+                    "/images/cap3/1.jpeg",
+                    "/images/cap3/2.jpeg",
+                    "/images/cap3/3.jpeg",
+                    "/images/cap3/4.jpeg",
+                    "/images/cap3/5.jpeg"
+                ]
+            }
+        };
+
+        // Obtener el número de capítulo actual de la URL
+        const currentChapter = parseInt(window.location.pathname.split('/').pop());
+        
+        // Actualizar el número de capítulo en el título
+        document.getElementById('chapter-number').textContent = currentChapter;
+
+        // Función para cargar el contenido del capítulo
+        function loadChapterContent(chapterNum) {
+            const content = chapterContent[chapterNum];
+            const chapterContentDiv = document.getElementById('chapter-content');
+            chapterContentDiv.innerHTML = ''; // Limpiar contenido previo
+
+            content.quotes.forEach((quote, index) => {
+                const quoteDiv = document.createElement('div');
+                quoteDiv.className = 'chapter-content text-center'; // Añadir clase para espaciado
+                quoteDiv.innerHTML = `
+                    <p class="quote">"${quote}"</p>
+                    <img src="${content.images[index]}" alt="Imagen ${index + 1}" class="chapter-image mx-auto block">
+                `;
+                chapterContentDiv.appendChild(quoteDiv);
+            });
+        }
+
+        // Cargar el contenido del capítulo actual
+        loadChapterContent(currentChapter);
+
+        // Actualizar el enlace de la flecha para ir al siguiente capítulo
+        const nextChapterLink = document.getElementById('next-chapter-link');
+        if (currentChapter < 3) {
+            nextChapterLink.href = `/chapter/${currentChapter + 1}`;
+        } else {
+            // Si es el último capítulo, ocultar la flecha
+            nextChapterLink.style.display = 'none';
+        }
+
+        // Actualizar la fuente del video
+        const chapterVideo = document.getElementById('chapter-video');
+        chapterVideo.src = `/videos/chapter${currentChapter}.mp4`;
+    </script>
 </body>
 </html>
