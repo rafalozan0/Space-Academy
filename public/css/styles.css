@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Estilos personalizados adicionales si los necesitas */
+.button {
+  @apply bg-yellow-400 text-white font-bold py-3 px-6 rounded-full transition-transform duration-300 shadow-lg;
+}
+
+.button:hover {
+  @apply transform scale-110 shadow-xl;
+}

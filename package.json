@@ -1,0 +1,23 @@
+{
+  "name": "story-webb",
+  "version": "1.0.0",
+  "description": "Una aplicación web para contar historias y explorar sonidos del espacio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "build": "npx tailwindcss -i ./public/css/styles.css -o ./public/css/output.css",
+    "vercel-build": "npm run build"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.3.3"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}
